@@ -1,10 +1,18 @@
 import "./App.css";
+import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import NoPage from "./components/NoPage";
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-red-500">ATTS Jewellery</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
