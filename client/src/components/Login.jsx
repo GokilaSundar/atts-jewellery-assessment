@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const loginSchema = Yup.object().shape({
   adminEmail: Yup.string()
@@ -19,8 +20,18 @@ const Login = () => {
       <Formik
         initialValues={{ adminEmail: "", adminPassword: "" }}
         validationSchema={loginSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, { resetForm }) => {
+          axios
+            .post("/api/login", values)
+            .then(() => {
+              alert("Successfully login");
+              resetForm();
+            })
+            .catch((error) => {
+              alert("Failed to login");
+              resetForm();
+              console.log("Failed to login", error);
+            });
         }}
       >
         {({ errors, touched }) => (

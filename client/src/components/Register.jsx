@@ -1,9 +1,11 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
   const registerSchema = Yup.object().shape({
     adminName: Yup.string()
       .min(3, "Name atleast more than 3 letters")
@@ -21,7 +23,21 @@ const Register = () => {
       <Formik
         initialValues={{ adminName: "", adminEmail: "", adminPassword: "" }}
         validationSchema={registerSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
+          axios
+            .post("/api/register", {
+              adminName: values.adminName,
+              adminEmail: values.adminEmail,
+              adminPassword: values.adminPassword,
+            })
+            .then(() => {
+              alert("Successfully registered");
+              navigate("/login");
+            })
+            .catch((error) => {
+              alert("Failed to register");
+              console.log("Failed to register", error);
+            });
           console.log(values);
         }}
       >
