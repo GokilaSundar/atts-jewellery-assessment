@@ -34,7 +34,7 @@ const Login = () => {
             });
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form className="flex flex-col items-center ">
             <div className="border border-white rounded-md p-5 bg-white flex flex-col gap-2 ">
               <div className="flex flex-col ">
@@ -65,7 +65,12 @@ const Login = () => {
                 </div>
               </div>
               <button
-                className="border bg-buttonColor text-white p-1 font-medium rounded-md border-buttonColor"
+                disabled={isSubmitting}
+                className={`border bg-buttonColor text-white p-1 font-medium rounded-md ${
+                  isSubmitting && touched
+                    ? " bg-disableButton cursor-not-allowed "
+                    : "bg-enableButton"
+                }`}
                 type="submit"
               >
                 Login

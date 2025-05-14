@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        buttonColor: "#88C2BB",
+        disableButton: "#88C2BB",
+        enableButton: "#246b63",
       },
     },
   },
