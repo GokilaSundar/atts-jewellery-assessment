@@ -8,8 +8,17 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import Register from "./components/Register";
+import { useLayoutEffect } from "react";
 
 function App() {
+  useLayoutEffect(() => {
+    const preloader = document.querySelector(".preloader");
+
+    if (preloader) {
+      preloader.remove();
+    }
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
