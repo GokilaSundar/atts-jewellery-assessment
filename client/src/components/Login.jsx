@@ -25,8 +25,8 @@ const Login = () => {
       <Formik
         initialValues={{ adminEmail: "", adminPassword: "" }}
         validationSchema={loginSchema}
-        onSubmit={(values) => {
-          axios
+        onSubmit={async (values) => {
+          await axios
             .post("/api/login", values)
             .then((response) => {
               setAdmin(response.data);
