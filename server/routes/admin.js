@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
 
     res.status(200).send({ message: "Successfully registered" });
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.status(500).send({ message: "Failed to register", error });
   }
 });
@@ -70,7 +70,10 @@ router.post("/login", async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    res.cookie("authCookie", token, { maxAge: 900000, httpOnly: true });
+    res.cookie("authCookie", token, {
+      maxAge: 24 * 60 * 60 * 1000, // 24  Hours
+      httpOnly: true,
+    });
 
     const user = oldUser.toJSON();
 
@@ -78,7 +81,7 @@ router.post("/login", async (req, res) => {
 
     res.status(200).send(user);
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.status(500).send({ message: "Failed to login", error });
   }
 });
