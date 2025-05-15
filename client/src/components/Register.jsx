@@ -48,9 +48,12 @@ const Register = () => {
               <div className="flex flex-col ">
                 <label className=" text-left font-medium">Name</label>
                 <Field
-                  className="border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 "
+                  className={`border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 ${
+                    isSubmitting ? "opacity-50" : ""
+                  }`}
                   type="text"
                   name="adminName"
+                  disabled={isSubmitting}
                 />
                 <div className="mb-5 text-left text-xs text-red-600">
                   {errors.adminName && touched.adminName ? (
@@ -61,9 +64,12 @@ const Register = () => {
               <div className="flex flex-col ">
                 <label className=" text-left font-medium">Email</label>
                 <Field
-                  className="border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 "
+                  className={`border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 ${
+                    isSubmitting ? "opacity-50" : ""
+                  }`}
                   type="email"
                   name="adminEmail"
+                  disabled={isSubmitting}
                 />
                 <div className="mb-5 text-left text-xs text-red-600">
                   {errors.adminEmail && touched.adminEmail ? (
@@ -75,9 +81,12 @@ const Register = () => {
                 <label className="text-left font-medium">Password</label>
 
                 <Field
-                  className="border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1"
+                  className={`border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 ${
+                    isSubmitting ? "opacity-50" : ""
+                  }`}
                   type="password"
                   name="adminPassword"
+                  disabled={isSubmitting}
                 />
                 <div className="mb-5 text-left text-xs text-red-600">
                   {errors.adminPassword && touched.adminPassword ? (
