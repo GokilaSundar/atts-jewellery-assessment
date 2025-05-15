@@ -1,9 +1,11 @@
 import "./database.js";
-import express from "express";
+
 import cookie from "cookie-parser";
+import express from "express";
 import jwt from "jsonwebtoken";
 
 import adminRouter from "./routes/admin.js";
+import meRouter from "./routes/me.js";
 
 const app = express();
 
@@ -29,6 +31,8 @@ app.use("/api", (req, res, next) => {
     next();
   });
 });
+
+app.use("/api", meRouter);
 
 app.get("/api/hello", (req, res) => {
   res.send({ message: "Hello World!" });
