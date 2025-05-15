@@ -2,7 +2,9 @@ import "./database.js";
 
 import cookie from "cookie-parser";
 import express from "express";
+import { existsSync } from "fs";
 import jwt from "jsonwebtoken";
+import { join } from "path";
 
 import adminRouter from "./routes/admin.js";
 import jewelleryRouter from "./routes/jewelleries.js";
@@ -41,6 +43,20 @@ app.use("/api", jewelleryRouter);
 app.get("/api/hello", (req, res) => {
   res.send({ message: "Hello World!" });
 });
+
+const publicPath = join(process.cwd(), "public");
+
+if (existsSync(publicPath)) {
+  app.use(express.static(publicPath));
+
+  app.get("/{*splat}", (_, res) => {
+    res.sendFile(join(publicPath, "index.html"));
+  });
+} else {
+  app.get("/", (_, res) => {
+    res.send("API is running...");
+  });
+}
 
 app.listen(5000, () => {
   console.log("server successfully run");
