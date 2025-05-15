@@ -5,6 +5,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 
 import adminRouter from "./routes/admin.js";
+import jewelleryRouter from "./routes/jewelleries.js";
 import meRouter from "./routes/me.js";
 
 const app = express();
@@ -34,6 +35,8 @@ app.use("/api", (req, res, next) => {
 });
 
 app.use("/api", meRouter);
+
+app.use("/api", jewelleryRouter);
 
 app.get("/api/hello", (req, res) => {
   res.send({ message: "Hello World!" });
