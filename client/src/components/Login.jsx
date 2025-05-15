@@ -1,8 +1,10 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+
+import { useAuth } from "./ProtectedRoutes/AuthContext";
 
 const loginSchema = Yup.object().shape({
   adminEmail: Yup.string()
@@ -14,23 +16,25 @@ const loginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setAdmin } = useAuth();
+
   return (
     <div>
-      <h2 className="font-medium text-2xl p-3">Login</h2>
+      <h2 className="font-medium text-center text-2xl p-3">Login</h2>
       <Formik
         initialValues={{ adminEmail: "", adminPassword: "" }}
         validationSchema={loginSchema}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           axios
             .post("/api/login", values)
-            .then(() => {
-              alert("Successfully login");
-              resetForm();
+            .then((response) => {
+              setAdmin(response.data);
+              navigate("/dashboard");
             })
             .catch((error) => {
               alert("Failed to login");
-              resetForm();
-              console.log("Failed to login", error);
+              console.error("Failed to login", error);
             });
         }}
       >
@@ -40,7 +44,7 @@ const Login = () => {
               <div className="flex flex-col ">
                 <label className=" text-left font-medium">Email</label>
                 <Field
-                  className="border-2 border-gray-300 bg-white w-80 rounded-md p-1 "
+                  className="border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1 "
                   type="email"
                   name="adminEmail"
                 />
@@ -54,7 +58,7 @@ const Login = () => {
                 <label className="text-left font-medium">Password</label>
 
                 <Field
-                  className="border-2 border-gray-300 bg-white w-80 rounded-md p-1"
+                  className="border-2 border-gray-300 bg-white lg:w-[500px] sm:w-96 rounded-md p-1"
                   type="password"
                   name="adminPassword"
                 />
