@@ -57,7 +57,7 @@ router.post(
       const createJewellery = await jewellery.save();
       res.status(201).json(createJewellery);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to add the jewellery data", error);
       res.status(500).send({ message: "Failed to add the jewellery data" });
     }
   }
@@ -104,7 +104,7 @@ router.get("/jewellery", async (req, res) => {
 
     res.status(200).json({ count, items });
   } catch (error) {
-    console.error(error, "Failed to load the jewellery data");
+    console.error("Failed to load the jewellery data", error);
     res.status(500).send({ message: "Failed to load the jewellery data" });
   }
 });
@@ -145,7 +145,7 @@ router.put(
         res.status(404).json({ message: "jewellery not found" });
       }
     } catch (error) {
-      console.error(error, "Failed to update the jewellery data");
+      console.error("Failed to update the jewellery data", error);
       res.status(500).send({ message: "Failed to update the jewellery data" });
     }
   }
@@ -160,7 +160,7 @@ router.delete("/jewellery/:id", async (req, res) => {
       res.status(404).json({ message: "jewellery not found" });
     }
   } catch (error) {
-    console.error(error);
+    console.error("Couldn't delete the jewellery", error);
     res.status(500).send({ message: "Couldn't delete the jewellery" });
   }
 });

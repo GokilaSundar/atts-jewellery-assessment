@@ -59,5 +59,5 @@ if (existsSync(publicPath)) {
 }
 
 app.listen(5000, () => {
-  console.log("server successfully run");
+  console.log("Server started successfully on port 5000");
 });

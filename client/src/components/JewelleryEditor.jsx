@@ -80,7 +80,7 @@ const JewelleryEditor = () => {
             })
             .catch((error) => {
               alert("Faild to add the data");
-              console.error(error, "Faild to add the data");
+              console.error("Faild to add the data", error);
             });
         }}
       >
