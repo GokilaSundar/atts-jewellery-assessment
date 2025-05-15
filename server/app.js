@@ -10,6 +10,7 @@ import meRouter from "./routes/me.js";
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 
 app.use("/api", adminRouter);
