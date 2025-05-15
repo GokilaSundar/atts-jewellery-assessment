@@ -1,18 +1,27 @@
 import "./App.css";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import Register from "./components/Register";
-import NoPage from "./components/NoPage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Navbar />}>
+          <Route path="/" element={<Dashboard />} />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 }
 
